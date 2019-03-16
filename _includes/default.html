@@ -3,7 +3,7 @@
 <head>                     
         <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<meta charset="utf-8">
-	<title>{{ page.title }}</title>
+	<title>{% if page.title %}{{ page.title }}{% else %}{{site.title}}{% endif %}</title>
 	{% if page.description %}
 	<meta name="description" content="{{ page.description }}">
 	{% endif %}
@@ -49,7 +49,7 @@
 			</a>
 			{% endif %}
 			{% if site.author.github %}
-			<a type="button" class="navbar-toggle nav-link" href="http://github.com/{{ site.author.github }}">
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/{{ site.author.github }}" target="_blank">
 				<i class="fa fa-github"></i>
 			</a>
 			{% endif %}

@@ -2,8 +2,8 @@
 layout: page
 tagline:
 ---
-
-{% for project in site.projects %}
+{% assign projects = site.projects | concat: site.own | sort:"date_start" | reverse %}
+{% for project in projects %}
 
 <article class="home">
 
@@ -13,28 +13,38 @@ tagline:
     {% else %}
       since {{ project.date_start | date: "%B %Y" }}
     {% endif %}
-  </span>
-
-  {% if project.image %}
-    <img src="{{ site.BASE_PATH }}{{ project.image }}" height="96" width="96" style="float: right; margin: 15px 15px 15px 15px;">
-  {% endif %}   
+  </span> 
 
   <h2>
     {% if project.url_store %}
       <a href="{{ project.url_store }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/play-store.png" alt="'{{ project.title }}' on play store" height="32" width="32"></a>
     {% endif %}
     {% if project.url_github %}
-      <a href="{{ project.url_github }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/url_github.png" alt="'{{ project.title }}' on url_github" height="32" width="32"></a>
+      <a href="{{ project.url_github }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/url_github.png" alt="'{{ project.title }}' on github" height="32" width="32"></a>
     {% endif %}
-    {% assign title_full = page.date | date: "%d" | plus:'0' %}
     {% if project.url_local %}
       <a href="{{ site.BASE_PATH }}{{ project.url }}">{{ project.title }}</a>
     {% elsif project.url_external %}
-      <a href="{{ project.url_external }}">{{ project.title }}</a>
+      <a href="{{ project.url_external }}" target="_blank">{{ project.title }}</a>
     {% else %}
       {{ project.title }}
     {% endif %}
+    {% if project.customer %}
+      <small>for 
+      {% if project.url_customer %}
+        <a href="{{ project.url_customer }}" target="_blank" style="color: #999;">
+      {% endif %}
+      {{ project.customer }}
+      {% if project.url_customer %}
+        </a>
+      {% endif %}
+      </small>
+    {% endif %}
   </h2>  
+
+  {% if project.image %}
+    <img src="{{ site.BASE_PATH }}{{ project.image }}" height="96" width="96" style="float: right; margin: 0 15px 0 15px;">
+  {% endif %}  
 
   <div> 
     {% if project.fullview %}
@@ -50,18 +60,18 @@ tagline:
     {% endif %}
   </div>
 
-  {% if project.side or project.role %}
+  {% if project.own or project.role %}
     <p> 
-      {% if project.side %}
+      {% if project.own %}
         <span class="project-role">Own project</span>
       {% elsif project.role %}
         <span class="project-role">Role:</span> {{ project.role }}
       {% endif %}
     </p>
+  {% endif %}
 
-    {% if project.technologies %}
-      <p><span class="project-technologies">Technologies:</span> {{ project.technologies }}</p>
-    {% endif %}
+  {% if project.technologies %}
+    <p><span class="project-technologies">Technologies:</span> {{ project.technologies }}</p>
   {% endif %}
 
 </article>
