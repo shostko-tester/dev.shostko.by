@@ -5,10 +5,18 @@ tagline:
 {% assign projects = site.projects | concat: site.own | sort:"date_start" | reverse %}
 {% for project in projects %}
 
+{% if project.image %}
+{% assign size = project.image_size | default: 192 %}
+<article class="home" style="min-height: {{size}}px">
+  <img src="{{ site.BASE_PATH }}{{ project.image }}" height="{{size}}" width="{{size}}" style="float: right; margin: 0 15px 0 15px;">
+{% else %}
 <article class="home">
+{% endif %} 
 
   <span class="project-date">
-    {% if project.date_end %}
+    {% if project.years %}
+      {{ project.years}}
+    {% elsif project.date_end %}
       {{ project.date_start | date: "%B %Y" }} - {{ project.date_end | date: "%B %Y" }}
     {% else %}
       since {{ project.date_start | date: "%B %Y" }}
@@ -17,10 +25,10 @@ tagline:
 
   <h2>
     {% if project.url_store %}
-      <a href="{{ project.url_store }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/play-store.png" alt="'{{ project.title }}' on play store" height="32" width="32"></a>
+      <a href="{{ project.url_store }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/play-store.png" style="vertical-align: baseline;" alt="'{{ project.title }}' on play store"></a>
     {% endif %}
     {% if project.url_github %}
-      <a href="{{ project.url_github }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/url_github.png" alt="'{{ project.title }}' on github" height="32" width="32"></a>
+      <a href="{{ project.url_github }}" target="_blank"><img src="{{ site.BASE_PATH }}/assets/icon/github.png" style="vertical-align: baseline;" alt="'{{ project.title }}' on github"></a>
     {% endif %}
     {% if project.url_local %}
       <a href="{{ site.BASE_PATH }}{{ project.url }}">{{ project.title }}</a>
@@ -40,13 +48,9 @@ tagline:
       {% endif %}
       </small>
     {% endif %}
-  </h2>  
+  </h2>   
 
-  {% if project.image %}
-    <img src="{{ site.BASE_PATH }}{{ project.image }}" height="96" width="96" style="float: right; margin: 0 15px 0 15px;">
-  {% endif %}  
-
-  <div> 
+  <p> 
     {% if project.fullview %}
       {{ project.content }}
     {% else %}
@@ -58,7 +62,7 @@ tagline:
         {{ project.excerpt }}
       {% endif %}
     {% endif %}
-  </div>
+  </p>
 
   {% if project.own or project.role %}
     <p> 

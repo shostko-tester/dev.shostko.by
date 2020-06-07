@@ -17,7 +17,9 @@
 	<div class="col-sm-10">
 
 	 <span class="project-date">
-	    {% if page.date_end %}
+	    {% if page.years %}
+	    	{{ page.years}}
+	    {% elsif page.date_end %}
 	      {{ page.date_start | date: "%B %Y" }} - {{ page.date_end | date: "%B %Y" }}
 	    {% else %}
 	      since {{ page.date_start | date: "%B %Y" }}
@@ -25,11 +27,11 @@
 	 </span> 
 
 	  {% if page.image %}
-	    <img src="{{ site.BASE_PATH }}{{ page.image }}" height="192" width="192" style="float: right; margin: 15px 15px 15px 15px;">
+	    <img src="{{ site.BASE_PATH }}{{ page.image }}" height="300" width="300" style="float: right; margin: 15px 15px 15px 15px;">
 	  {% endif %} 
 
 	  <div class="article_body">
-	  {{ content }}
+	  {{ content | strip }}
 	  </div> 
 
 	  {% if page.own or page.role %}
