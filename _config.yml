@@ -21,7 +21,7 @@ author:
   email_md5: 42dfae824cdccebc0e9180487d59ccb0у
 
 BASE_PATH:
-FULL_PATH: http://shostko.by
+FULL_PATH: http://dev.shostko.by
 
 markdown: kramdown
 highlighter: rouge
